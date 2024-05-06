@@ -1,20 +1,9 @@
 # Code originally provided by Kurt Hornik for aliases and rdxrefs db
 
+## Build and install Rd aliases and xrefs dbs which can be used for
+## checking Rd xrefs.
 if(is_dir(file.path(package_dir, "man"))) {
-    built_file <- file.path(package_dir, "build", "partial.rdb")
-    if(!is_file(built_file))
-        built_file <- NULL
-    db <- suppressWarnings(tools:::.build_Rd_db(package_dir,
-                                                os = c("unix", "windows"),
-                                                stage = "build",
-                                                built_file =
-                                                    built_file))
-    ## See tools::Rd_db(): tools:::.build_Rd_db() does not (yet?)
-    ## use relative Rd file paths.
-    if(length(db)) {
-        first <- nchar(file.path(package_dir, "man")) + 2L
-        names(db) <- substring(names(db), first)
-    }
+    db <- tools:::Rd_db(dir = package_dir)
     aliases <- lapply(db, tools:::.Rd_get_metadata, "alias")
     afile <- file.path(tmp_dir, "aliases.rds")
     saveRDS(aliases, file = afile, version = 2)
