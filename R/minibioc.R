@@ -4,6 +4,7 @@
 #'
 #' setwd("~/bioc")
 #'
+#' ## minibioc source
 #' src_base <- "~/minibioc/packages/3.20/bioc/"
 #' if (!dir.exists(src_base))
 #'     dir.create(src_base, recursive = TRUE)
@@ -16,8 +17,8 @@
 #' options(repos = c(getOption("repos"), biocSrc = repo_src_path))
 #'
 #'
-#' ## where are binaries hosted for Bioconductor??
-#' bin_base <- ""
+#' ## minibioc binaries
+#' bin_base <- "~/minibioc/packages/3.20/container-binaries/minibioc"
 #' if (!dir.exists(bin_base))
 #'    dir.create(bin_base, recursive = TRUE)
 #' repo_bin_path <- paste0("file:///", normalizePath(bin_base))
