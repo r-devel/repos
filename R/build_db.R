@@ -75,3 +75,36 @@ build_meta_aliases_db <- function(packages_dir, aliases_db_file, force = FALSE) 
 }
 
 is_file <- function(x) file.exists(x) && !file.info(x)[["isdir"]]
+
+#' @examples
+#' src_base <- "~/minibioc/packages/3.20/bioc/"
+#' packages_dir <- file.path(src_base, "web", "packages")
+#'
+#' meta_folder <- file.path(contrib.url(src_base), "Meta")
+#' if (!dir.exists(meta_folder)) dir.create(meta_folder, recursive = TRUE)
+#' rdxrefs_db_file <- file.path(meta_folder, "rdxrefs.rds")
+#'
+#' meta_rdxrefs_db <- build_meta_rdxrefs_db(packages_dir, rdxrefs_db_file)
+#'
+#' saveRDS(meta_rdxrefs_db, rdxrefs_db_file, version = 2)
+#'
+#' @export
+build_meta_rdxrefs_db <- function(packages_dir, rdxrefs_db_file, force = FALSE) {
+    files <- Sys.glob(file.path(packages_dir, "*", "rdxrefs.rds"))
+    packages <- basename(dirname(files))
+    if(force || !is_file(rdxrefs_db_file)) {
+        db <- lapply(files, readRDS)
+        names(db) <- packages
+    } else {
+        db <- readRDS(rdxrefs_db_file)
+        ## Drop entries in db not in package web area.
+        db <- db[!is.na(match(names(db), packages))]
+        ## Update entries for which rdxrefs file is more recent than the
+        ## db file.
+        mtimes <- file.mtime(files)
+        files <- files[mtimes >= file.mtime(rdxrefs_db_file)]
+        db[basename(dirname(files))] <- lapply(files, readRDS)
+    }
+
+    db[sort(names(db))]
+}
