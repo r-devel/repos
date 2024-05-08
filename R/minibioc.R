@@ -1,7 +1,7 @@
 ## create mini local bioc repo
 
 #' @examples
-#'
+#' ## Bioc package source dirs
 #' setwd("~/bioc")
 #'
 #' bioc_sub <- c(

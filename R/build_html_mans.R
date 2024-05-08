@@ -7,6 +7,7 @@
 #'     "IRanges", "S4Vectors"
 #' )
 #'
+#' ## generate from Bioc package source dirs
 #' packages <- file.path(normalizePath("~/bioc"), bioc_sub)
 #' src_base <- "~/minibioc/packages/3.20/bioc"
 #'
