@@ -4,13 +4,19 @@
 #'
 #' setwd("~/bioc")
 #'
+#' bioc_sub <- c(
+#'     "SummarizedExperiment", "Biobase", "BiocBaseUtils",
+#'     "BiocGenerics", "DelayedArray", "GenomicRanges",
+#'     "IRanges", "S4Vectors"
+#' )
+#'
 #' ## minibioc source
 #' src_base <- "~/minibioc/packages/3.20/bioc/"
 #' if (!dir.exists(src_base))
 #'     dir.create(src_base, recursive = TRUE)
 #' repo_src_path <- paste0("file:///", normalizePath(src_base))
 #' create_mini_repo(
-#'     c("BiocGenerics", "BiocParallel"),
+#'     bioc_sub,
 #'     dir = src_base,
 #'     type = "source"
 #' )
@@ -23,7 +29,7 @@
 #'    dir.create(bin_base, recursive = TRUE)
 #' repo_bin_path <- paste0("file:///", normalizePath(bin_base))
 #' create_mini_repo(
-#'    c("BiocGenerics", "BiocParallel"),
+#'    bioc_sub,
 #'    dir = bin_base,
 #'    type = "binary"
 #' )

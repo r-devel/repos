@@ -1,8 +1,15 @@
 
 #' @examples
-#' packages <- file.path("~/bioc", c("BiocGenerics", "BiocParallel"))
 #'
-#' src_base <- "~/minibioc/packages/3.20/bioc/"
+#' bioc_sub <- c(
+#'     "SummarizedExperiment", "Biobase", "BiocBaseUtils",
+#'     "BiocGenerics", "DelayedArray", "GenomicRanges",
+#'     "IRanges", "S4Vectors"
+#' )
+#'
+#' packages <- file.path(normalizePath("~/bioc"), bioc_sub)
+#' src_base <- "~/minibioc/packages/3.20/bioc"
+#'
 #' Map(
 #'     build_db_from_source,
 #'     packages,
