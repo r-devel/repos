@@ -18,7 +18,7 @@
 #'
 #'
 #' ## minibioc binaries
-#' bin_base <- "~/minibioc/packages/3.20/container-binaries/minibioc"
+#' bin_base <- "~/minibioc/packages/3.20/container-binaries/bioconductor_docker"
 #' if (!dir.exists(bin_base))
 #'    dir.create(bin_base, recursive = TRUE)
 #' repo_bin_path <- paste0("file:///", normalizePath(bin_base))
