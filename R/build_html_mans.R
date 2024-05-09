@@ -15,7 +15,7 @@
 #'
 #' @export
 build_html_mans <- function(packages_dir, src_base) {
-    packages <- basename(package_dir)
+    packages <- basename(packages_dir)
     html_dir <- file.path(base_dir, "manuals")
     if (!dir.exists(html_dir)) dir.create(html_dir, recursive = TRUE)
     outfiles <- file.path(html_dir, paste0(packages, ".html"))
