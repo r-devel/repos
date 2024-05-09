@@ -24,7 +24,7 @@ build_db_from_source <- function(package_dir, src_base) {
     package_web_dir <- file.path(src_base, "web", "packages", package)
     if (!dir.exists(package_web_dir))
         dir.create(package_web_dir, recursive = TRUE)
-    db <- tools:::Rd_db(dir = package_dir)
+    db <- tools::Rd_db(dir = package_dir)
 
     ## aliases.rds
     aliases <- lapply(db, tools:::.Rd_get_metadata, "alias")

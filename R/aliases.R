@@ -3,7 +3,7 @@
 ## Build and install Rd aliases and xrefs dbs which can be used for
 ## checking Rd xrefs.
 if(is_dir(file.path(package_dir, "man"))) {
-    db <- tools:::Rd_db(dir = package_dir)
+    db <- tools::Rd_db(dir = package_dir)
     aliases <- lapply(db, tools:::.Rd_get_metadata, "alias")
     afile <- file.path(tmp_dir, "aliases.rds")
     saveRDS(aliases, file = afile, version = 2)
