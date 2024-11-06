@@ -20,9 +20,11 @@ build_html_mans <- function(package_dirs, src_base) {
     html_dir <- file.path(src_base, "manuals")
     if (!dir.exists(html_dir)) dir.create(html_dir, recursive = TRUE)
     outfiles <- file.path(html_dir, paste0(packages, ".html"))
-    Map(
-        tools::pkg2HTML,
-        dir = package_dirs,
-        out = outfiles
-    )
+    for (i in seq_along(package_dirs)) {
+        tools::pkg2HTML(
+            dir = package_dirs[i],
+            out = outfiles[i]
+        )
+    }
+    outfiles
 }
