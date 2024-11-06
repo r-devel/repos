@@ -1,21 +1,20 @@
 
 #' @examples
 #'
-#' bioc_sub <- c(
-#'     "SummarizedExperiment", "Biobase", "BiocBaseUtils",
-#'     "BiocGenerics", "DelayedArray", "GenomicRanges",
-#'     "IRanges", "S4Vectors"
+#' library(BiocPkgTools)
+#' bioc_sub <- pkgBiocDeps(
+#'     "SummarizedExperiment", pkgType = "software",
+#'     recursive = TRUE, only.bioc = TRUE
 #' )
+#' bioc_sub <- unlist(bioc_sub, use.names = FALSE)
 #'
 #' ## generate from Bioc package source dirs
 #' packages <- file.path(normalizePath("~/bioc"), bioc_sub)
 #' src_base <- "~/minibioc/packages/3.20/bioc"
 #'
-#' Map(
-#'     build_db_from_source,
-#'     packages,
-#'     MoreArgs = list(src_base = src_base)
-#' )
+#' for (package in packages) {
+#'    build_db_from_source(package, src_base)
+#' }
 #'
 #' @export
 build_db_from_source <- function(package_dir, src_base) {
@@ -30,11 +29,12 @@ build_db_from_source <- function(package_dir, src_base) {
     aliases <- lapply(db, tools:::.Rd_get_metadata, "alias")
     afile <- file.path(tmp_dir, "aliases.rds")
     saveRDS(aliases, file = afile, version = 2)
+    atofile <- file.path(package_web_dir, "aliases.rds")
     file.copy(
         from = afile,
-        to = file.path(package_web_dir, "aliases.rds")
+        to = atofile
     )
-    message(" aliases", appendLF = FALSE)
+    message(atofile)
 
     ## rdxrefs.rds
     rdxrefs <- lapply(db, tools:::.Rd_get_xrefs)
@@ -42,11 +42,12 @@ build_db_from_source <- function(package_dir, src_base) {
                      Source = rep.int(names(rdxrefs), sapply(rdxrefs, NROW)))
     xfile <- file.path(tmp_dir, "rdxrefs.rds")
     saveRDS(rdxrefs, file = xfile, version = 2)
+    xtofile <- file.path(package_web_dir, "rdxrefs.rds")
     file.copy(
         from = xfile,
-        to = file.path(package_web_dir, "rdxrefs.rds")
+        to = xtofile
     )
-    message(" rdxrefs", appendLF = FALSE)
+    message(xtofile)
 }
 
 #' @examples
